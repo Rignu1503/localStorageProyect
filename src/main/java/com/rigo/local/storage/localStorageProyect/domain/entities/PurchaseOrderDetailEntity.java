@@ -17,7 +17,7 @@ public class PurchaseOrderDetailEntity {
     private Long id;
 
     @Column(nullable = false, length = 5)
-    private int quantity;
+    private Integer quantity;
 
     @Column(nullable = false)
     private Double unitPrice;
