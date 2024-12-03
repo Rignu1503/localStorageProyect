@@ -1,5 +1,6 @@
 package com.rigo.local.storage.localStorageProyect.api.dto.response.Relations;
 
+import com.rigo.local.storage.localStorageProyect.api.dto.response.BasicResponse.SupplierResponse;
 import com.rigo.local.storage.localStorageProyect.utils.enums.PurchaseStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,6 @@ public class PurchaseOrderRelationResponse {
     private PurchaseStatus status;
 
     /*Relation*/
-    private SupplierRelationResponse supplier;
+    private SupplierResponse supplier;
 
 }

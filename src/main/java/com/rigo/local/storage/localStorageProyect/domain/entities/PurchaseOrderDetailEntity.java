@@ -3,8 +3,6 @@ package com.rigo.local.storage.localStorageProyect.domain.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity(name = "purchase_order_details")
 @Data
 @Builder

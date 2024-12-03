@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategoryRequest {
 
-    @Size(min = 0, max = 100, message = "name exceeds the number of characters allowed")
+    @Size(max = 100, message = "name exceeds the number of characters allowed")
     @NotBlank(message = "name is required")
     private String name;
 
