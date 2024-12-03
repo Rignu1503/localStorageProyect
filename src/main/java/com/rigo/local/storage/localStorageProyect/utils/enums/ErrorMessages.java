@@ -16,9 +16,9 @@ public class ErrorMessages {
         return String.format(message, entity);
     }
 
-    public static String nameNotFound(String entity) {
-        final String message = "There are no records in the entity %s with the supplied name";
-        return String.format(message, entity);
+    public static String nameNotFound() {
+        final String message = "category does not exist";
+        return String.format(message);
     }
 
 }

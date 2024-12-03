@@ -1,9 +1,6 @@
 package com.rigo.local.storage.localStorageProyect.api.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProdcutRequest {
+public class ProductRequest {
 
     @Size(min = 0, max = 50, message = "Title exceeds the number of characters allowed")
     @NotBlank(message = "Name is required")
@@ -28,12 +25,12 @@ public class ProdcutRequest {
     @NotBlank(message = "Barcode is required")
     private String barcode;
 
-    @Size(min = 0)
+    @Min(value = 0, message = "stockCurrent must be greater than or equal to 0")
     @Positive(message = "The number must be positive")
     @NotNull(message = "stockCurrent is required")
     private int stockCurrent;
 
-    @Size(min = 0)
+    @Min(value = 0, message = "stockCurrent must be greater than or equal to 0")
     @Positive(message = "The number must be positive")
     @NotNull(message = "StockCurrent is required")
     private int stockMinimun;
