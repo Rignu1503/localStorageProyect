@@ -20,7 +20,7 @@ public class SupplierEntity {
     private String name;
 
     @Column(nullable = false, unique = true, length = 20)
-    private int phone;
+    private Long phone;
 
     @Column(nullable = false, unique = true, length = 50)
     private String email;

@@ -19,7 +19,7 @@ public class SuppliersRequest {
     private String name;
 
     @NotNull(message = "Phone is required")
-    private int phone;
+    private Long phone;
 
     @Email(message = "Email must be valid")
     @NotNull(message = "Email is required")
