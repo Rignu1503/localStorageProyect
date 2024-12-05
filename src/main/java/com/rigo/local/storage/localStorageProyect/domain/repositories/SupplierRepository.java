@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface SupplierRepository extends JpaRepository<SupplierEntity, Long> {
 
     SupplierEntity findByName(String name);
-    SupplierEntity findByPhone(int phone);
+    SupplierEntity findByPhone(Long phone);
     SupplierEntity findByAddress(String address);
     SupplierEntity findByEmail(String email);
 }

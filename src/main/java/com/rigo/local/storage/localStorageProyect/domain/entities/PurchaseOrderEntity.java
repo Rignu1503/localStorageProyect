@@ -21,8 +21,7 @@ public class PurchaseOrderEntity {
     @Builder.Default
     private LocalDateTime dateCreation = LocalDateTime.now();
 
-    @Builder.Default
-    private LocalDateTime dateUpdate = LocalDateTime.now();
+    private LocalDateTime dateUpdate;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
