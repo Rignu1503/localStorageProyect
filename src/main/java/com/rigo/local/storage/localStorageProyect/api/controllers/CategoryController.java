@@ -53,7 +53,7 @@ public class CategoryController {
     })
     @PostMapping
     public ResponseEntity<CategoryResponse> createCategory(
-            @Validated @RequestBody CategoryRequest request) {
+            @Validated @RequestBody CategoryRequest request) throws BadRequestException {
 
         return ResponseEntity.ok(this.categoryService.create(request));
 

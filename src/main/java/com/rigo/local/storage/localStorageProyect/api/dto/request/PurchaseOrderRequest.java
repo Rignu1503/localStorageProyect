@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,5 +20,7 @@ public class PurchaseOrderRequest {
 
     @NotNull(message = "Supplier ID cannot be null")
     private Long supplierId;
+    @NotNull(message = " ID cannot be null")
+    private List<PurchaseOrderDetailRequest> products;
 
 }

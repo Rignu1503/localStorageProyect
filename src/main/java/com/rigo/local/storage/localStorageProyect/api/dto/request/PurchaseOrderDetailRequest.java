@@ -1,5 +1,6 @@
 package com.rigo.local.storage.localStorageProyect.api.dto.request;
 
+import com.rigo.local.storage.localStorageProyect.domain.entities.PurchaseOrderEntity;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
@@ -18,8 +19,7 @@ public class PurchaseOrderDetailRequest {
 
     @NotNull(message = "Quantity cannot be null")
     @PositiveOrZero(message = "Quantity must be greater than or equal to 0")
-    @Max(value = 99999, message = "Quantity must not exceed 99999")
-    private InternetAddress quantity;
+    private Integer quantity;
 
     @NotNull(message = "Unit price cannot be null")
     @Positive(message = "Unit price must be greater than 0")
@@ -28,6 +28,4 @@ public class PurchaseOrderDetailRequest {
     @NotNull(message = "Product cannot be null")
     private Long productId;
 
-    @NotNull(message = "Purchase order cannot be null")
-    private Long purchaseOrderId;
 }

@@ -51,7 +51,7 @@ public class PurchaseOrderController {
     })
     @PostMapping
     public ResponseEntity<PurchaseOrderRelationResponse> create(
-            @Validated @RequestBody PurchaseOrderRequest request){
+            @Validated @RequestBody PurchaseOrderRequest request) throws BadRequestException {
         return ResponseEntity.ok(this.purchaseOrderService.create(request));
     }
 

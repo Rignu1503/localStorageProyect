@@ -33,7 +33,7 @@ public class SupplierController {
     })
     @PostMapping
     public ResponseEntity<SupplierResponse> createSupplier(
-            @Validated @RequestBody SuppliersRequest request) {
+            @Validated @RequestBody SuppliersRequest request) throws BadRequestException {
 
         return ResponseEntity.ok(this.supplierService.create(request));
 

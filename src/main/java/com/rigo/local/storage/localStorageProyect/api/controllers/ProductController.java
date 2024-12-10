@@ -33,7 +33,7 @@ public class ProductController {
     })
     @PostMapping
     public ResponseEntity<ProductRelationResponse> createProduct(
-            @Validated @RequestBody ProductRequest request) {
+            @Validated @RequestBody ProductRequest request) throws BadRequestException {
 
         return ResponseEntity.ok(this.productService.create(request));
     }
