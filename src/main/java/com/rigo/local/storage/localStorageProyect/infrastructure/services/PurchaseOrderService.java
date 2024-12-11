@@ -13,6 +13,7 @@ import com.rigo.local.storage.localStorageProyect.domain.repositories.SupplierRe
 import com.rigo.local.storage.localStorageProyect.infrastructure.adstract_services.IPurchaseOrderService;
 import com.rigo.local.storage.localStorageProyect.infrastructure.mappers.PurchaseOrderMapper;
 import com.rigo.local.storage.localStorageProyect.utils.enums.ErrorMessages;
+import com.rigo.local.storage.localStorageProyect.utils.enums.PurchaseStatus;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -51,6 +54,9 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         // Guardar la orden de compra en la base de datos
         PurchaseOrderEntity savedPurchaseOrder = this.purchaseOrderRepository.save(newPurchaseOrder);
 
+        // Lista para agregar a la respuesta
+        ArrayList<PurchaseOrderDetailEntity> purchaseOrderDetails = new ArrayList<>();
+
         // Procesar los detalles de la orden (productos asociados)
         if (request.getProducts() != null) {
             request.getProducts().forEach(productDetail -> {
@@ -71,12 +77,15 @@ public class PurchaseOrderService implements IPurchaseOrderService {
                 detailEntity.setQuantity(productDetail.getQuantity());
                 detailEntity.setUnitPrice(productDetail.getUnitPrice());
 
+                purchaseOrderDetails.add(detailEntity);
+
                 // Guardar cada detalle en la base de datos
                 purchaseOrderDetailRepository.save(detailEntity);
-                System.out.println("GUARDADO ENTIDAD DETAIL" + detailEntity);
 
             });
         }
+
+        savedPurchaseOrder.setPurchaseOrderDetailList(purchaseOrderDetails);
 
         // Retornar la respuesta mapeada
         return this.purchaseOrderMapper.toResponse(savedPurchaseOrder);
@@ -95,15 +104,38 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     public PurchaseOrderRelationResponse update(Long id, PurchaseOrderRequestUpdate request) throws BadRequestException {
 
         request.setDateUpdate(LocalDateTime.now());
-        PurchaseOrderEntity purchaseOrder = this.findById(id);
+        PurchaseOrderEntity purchaseOrder = this.find(id);
+
+        // Obtener el estado anterior
+        PurchaseStatus previousStatus = purchaseOrder.getStatus();
+
+        // Actualizar los campos de la orden
         this.purchaseOrderMapper.updatePurchaseOrder(request, purchaseOrder);
 
-        return this.purchaseOrderMapper.toResponse(purchaseOrder);
+        // Verificar si el estado cambió a RECEIVED
+        if (request.getStatus() == PurchaseStatus.RECEIVED && previousStatus != PurchaseStatus.RECEIVED) {
+            // Actualizar el stock de los productos asociados
+            purchaseOrder.getPurchaseOrderDetailList().forEach(detail -> {
+                ProductEntity product = detail.getProduct();
+                int newStock = product.getStockCurrent() + detail.getQuantity();
+                product.setStockCurrent(newStock);
+                System.out.println(product);
+
+                // Guardar el producto actualizado
+                this.productRepository.save(product);
+            });
+        }
+
+        // Guardar la orden actualizada
+        PurchaseOrderEntity updatedPurchaseOrder = this.purchaseOrderRepository.save(purchaseOrder);
+
+        // Retornar la respuesta mapeada
+        return this.purchaseOrderMapper.toResponse(updatedPurchaseOrder);
     }
 
-    private PurchaseOrderEntity findById(Long id) throws BadRequestException {
+    private PurchaseOrderEntity find(Long id) throws BadRequestException {
 
         return this.purchaseOrderRepository.findById(id)
-                .orElseThrow(() -> new BadRequestException(ErrorMessages.IdNotFound("category")));
+                .orElseThrow(() -> new BadRequestException(ErrorMessages.IdNotFound("PurchaseOrder")));
     }
 }

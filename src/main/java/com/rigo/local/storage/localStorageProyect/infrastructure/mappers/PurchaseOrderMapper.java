@@ -10,8 +10,10 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring", uses = {SupplierMapper.class, PurchaseOrderDetailMapper.class})
 public interface PurchaseOrderMapper {
 
+
     PurchaseOrderEntity toEntity(PurchaseOrderRequest request);
 
+    @Mapping(target = "orderDetail", source = "purchaseOrderDetailList")
     PurchaseOrderRelationResponse toResponse(PurchaseOrderEntity entity);
 
     void updatePurchaseOrder(PurchaseOrderRequestUpdate request, @MappingTarget PurchaseOrderEntity entity);
