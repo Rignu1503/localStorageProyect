@@ -1,9 +1,8 @@
 package com.rigo.local.storage.localStorageProyect.api.controllers;
 
-
-import com.rigo.local.storage.localStorageProyect.api.dto.request.CategoryRequest;
-import com.rigo.local.storage.localStorageProyect.api.dto.response.BasicResponse.CategoryResponse;
-import com.rigo.local.storage.localStorageProyect.infrastructure.adstract_services.IcategoryService;
+import com.rigo.local.storage.localStorageProyect.api.dto.request.ClientRequest;
+import com.rigo.local.storage.localStorageProyect.api.dto.response.BasicResponse.ClientResponse;
+import com.rigo.local.storage.localStorageProyect.infrastructure.adstract_services.IClientService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
@@ -17,13 +16,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "category")
+@RequestMapping(path = "client")
 @AllArgsConstructor
-public class CategoryController {
+public class ClientController {
 
     @Autowired
-    private final IcategoryService categoryService;
-
+    private final IClientService clientService;
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
@@ -33,15 +31,14 @@ public class CategoryController {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @GetMapping
-    public ResponseEntity<Page<CategoryResponse>> getAll(
+    public ResponseEntity<Page<ClientResponse>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){
         Pageable pageable = PageRequest.of(page, size);
         if (page != 0) pageable = PageRequest.of(page - 1, size);
 
-        return ResponseEntity.ok(categoryService.getAll(pageable));
-
+        return ResponseEntity.ok(clientService.getAll(pageable));
     }
 
     @ApiResponses(value = {
@@ -52,11 +49,10 @@ public class CategoryController {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping
-    public ResponseEntity<CategoryResponse> create(
-            @Validated @RequestBody CategoryRequest request) throws BadRequestException {
+    public ResponseEntity<ClientResponse> create(
+            @Validated @RequestBody ClientRequest request) throws BadRequestException {
 
-        return ResponseEntity.ok(this.categoryService.create(request));
-
+        return ResponseEntity.ok(this.clientService.create(request));
     }
 
     @ApiResponses(value = {
@@ -67,11 +63,11 @@ public class CategoryController {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PutMapping(path = "/{id}")
-    public ResponseEntity<CategoryResponse> update(
-            @Validated @RequestBody CategoryRequest request,
+    public ResponseEntity<ClientResponse> update(
+            @Validated @RequestBody ClientRequest request,
             @PathVariable Long id) throws BadRequestException {
 
-        return ResponseEntity.ok(this.categoryService.update(id, request));
+        return ResponseEntity.ok(this.clientService.update(id, request));
     }
 
     @ApiResponses(value = {
@@ -82,14 +78,12 @@ public class CategoryController {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<CategoryResponse> delete(
+    public ResponseEntity<ClientResponse> delete(
             @PathVariable Long id) throws BadRequestException {
 
-        this.categoryService.delete(id);
+        this.clientService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
-
 
 
 

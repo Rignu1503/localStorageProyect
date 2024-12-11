@@ -23,7 +23,7 @@ public class ClientEntity {
     private String email;
 
     @Column(nullable = false, length = 20)
-    private int phone;
+    private Long phone;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

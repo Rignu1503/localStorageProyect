@@ -32,7 +32,7 @@ public class ProductController {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping
-    public ResponseEntity<ProductRelationResponse> createProduct(
+    public ResponseEntity<ProductRelationResponse> create(
             @Validated @RequestBody ProductRequest request) throws BadRequestException {
 
         return ResponseEntity.ok(this.productService.create(request));
@@ -47,7 +47,7 @@ public class ProductController {
     })
 
     @GetMapping(path = "/{nameCategory}")
-    public ResponseEntity<Page<ProductRelationResponse>> getByNameCategory(
+    public ResponseEntity<Page<ProductRelationResponse>> getByNameCategoryName(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @PathVariable String nameCategory
@@ -89,7 +89,7 @@ public class ProductController {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ProductRelationResponse> updateProduct(
+    public ResponseEntity<ProductRelationResponse> update(
             @Validated @RequestBody ProductRequest request,
             @PathVariable Long id) throws BadRequestException{
 
@@ -104,7 +104,7 @@ public class ProductController {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProductRelationResponse> deleteProduct(
+    public ResponseEntity<ProductRelationResponse> delete(
             @PathVariable Long id) throws BadRequestException{
 
         this.productService.delete(id);

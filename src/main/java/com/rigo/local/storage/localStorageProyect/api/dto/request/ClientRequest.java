@@ -22,7 +22,7 @@ public class ClientRequest {
     private String email;
 
     @NotNull(message = "Phone is required")
-    private int phone;
+    private Long phone;
 
 
 
