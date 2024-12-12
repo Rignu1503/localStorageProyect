@@ -28,5 +28,5 @@ public class ClientEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = false)
-    private List<SaleEntity> saleList;
+    private List<SalesEntity> saleList;
 }

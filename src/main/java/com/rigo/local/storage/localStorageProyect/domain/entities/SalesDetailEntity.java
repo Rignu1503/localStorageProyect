@@ -24,7 +24,7 @@ public class SalesDetailEntity {
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sale_id", referencedColumnName = "id")
-    private SaleEntity sale;
+    private SalesEntity sale;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

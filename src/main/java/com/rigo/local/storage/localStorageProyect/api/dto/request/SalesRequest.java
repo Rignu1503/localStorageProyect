@@ -7,17 +7,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class SalesRequest {
 
-
-    @Positive(message = "Total must be greater than 0")
-    @NotNull(message = "Total cannot be null")
-    private Double total;
-
     @NotNull(message = "Client cannot be null")
     private Long clientId;
+
+    @NotNull(message = " ID cannot be null")
+    private List<SalesDetailRequest> sales;
+
+
 }

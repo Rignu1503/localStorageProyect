@@ -21,4 +21,9 @@ public class ErrorMessages {
         return String.format(message);
     }
 
+    public static String insufficientstock(String stock) {
+        final String message = "insufficient stock, quantity available: %s";
+        return String.format(message, stock);
+    }
+
 }

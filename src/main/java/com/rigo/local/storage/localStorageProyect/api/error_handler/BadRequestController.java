@@ -3,6 +3,7 @@ package com.rigo.local.storage.localStorageProyect.api.error_handler;
 import com.rigo.local.storage.localStorageProyect.api.errors.BaseErrorResponse;
 import com.rigo.local.storage.localStorageProyect.api.errors.ErrorsResp;
 import com.rigo.local.storage.localStorageProyect.api.errors.DuplicateEntryException;  // Asegúrate de importar la excepción
+import com.rigo.local.storage.localStorageProyect.api.errors.InsufficientStockException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -66,4 +67,21 @@ public class BadRequestController {
                 .errors(errors)
                 .build();
     }
+
+    @ExceptionHandler(InsufficientStockException.class)
+    public BaseErrorResponse handleInsufficientStock(InsufficientStockException exception) {
+        List<Map<String, String>> errors = new ArrayList<>();
+        Map<String, String> error = new HashMap<>();
+        error.put("error", exception.getMessage());
+
+        errors.add(error);
+
+        return ErrorsResp.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .status(HttpStatus.BAD_REQUEST.name())
+                .errors(errors)
+                .build();
+    }
+
+
 }
