@@ -3,7 +3,6 @@ package com.rigo.local.storage.localStorageProyect.infrastructure.services;
 import com.rigo.local.storage.localStorageProyect.api.dto.request.ProductRequest;
 import com.rigo.local.storage.localStorageProyect.api.dto.response.Relations.ProductRelationResponse;
 import com.rigo.local.storage.localStorageProyect.api.errors.DuplicateEntryException;
-import com.rigo.local.storage.localStorageProyect.domain.entities.CategoryEntity;
 import com.rigo.local.storage.localStorageProyect.domain.entities.ProductEntity;
 import com.rigo.local.storage.localStorageProyect.domain.repositories.CategoryRepository;
 import com.rigo.local.storage.localStorageProyect.domain.repositories.ProductRepository;
@@ -17,7 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -35,7 +34,7 @@ public class ProductService implements IProductService {
     @Override
     public ProductRelationResponse create(ProductRequest request) {
 
-        ProductEntity existingProduct = this.productRepository.findByName(request.getName());
+        Optional<ProductEntity> existingProduct = this.productRepository.findByName(request.getName());
         ProductEntity existingBarCode = this.productRepository.findByBarcode(request.getBarcode());
 
         if (existingProduct != null) throw new DuplicateEntryException(request.getName());
@@ -87,5 +86,14 @@ public class ProductService implements IProductService {
 
         return productEntities.map(this.productMapper::toResponse);
     }
+
+    @Override
+    public Optional<ProductRelationResponse> getProductName(String name, Pageable pageable) {
+        Optional<ProductEntity> productEntity = productRepository.findByName(name);
+
+        // Convertir la entidad a DTO
+        return productEntity.map(productMapper::toResponse);
+    }
+
 
 }

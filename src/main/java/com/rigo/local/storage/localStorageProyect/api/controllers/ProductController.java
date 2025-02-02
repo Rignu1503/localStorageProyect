@@ -15,10 +15,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping(path = "product")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT })
 public class ProductController {
 
     @Autowired
@@ -46,7 +49,7 @@ public class ProductController {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
 
-    @GetMapping(path = "/{nameCategory}")
+    @GetMapping(path = "/category/{nameCategory}")
     public ResponseEntity<Page<ProductRelationResponse>> getByNameCategoryName(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -57,6 +60,19 @@ public class ProductController {
         if (page != 0) pageable = PageRequest.of(page - 1, size);
 
         return ResponseEntity.ok(this.productService.getProductsByCategoryName(nameCategory, pageable));
+    }
+
+    @GetMapping(path = "/{nameProduct}")
+    public ResponseEntity<Optional<ProductRelationResponse>> getByName(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @PathVariable String nameProduct
+    ){
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (page != 0) pageable = PageRequest.of(page - 1, size);
+
+        return ResponseEntity.ok(this.productService.getProductName(nameProduct, pageable));
     }
 
     @ApiResponses(value = {

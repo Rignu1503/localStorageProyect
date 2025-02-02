@@ -19,6 +19,9 @@ public class ProductEntity {
     @Column(nullable = false, unique = true, length = 50)
     private String name;
 
+    @Column(nullable = false)
+    private String urlImage;
+
     @Column( length = 50)
     private String description;
 

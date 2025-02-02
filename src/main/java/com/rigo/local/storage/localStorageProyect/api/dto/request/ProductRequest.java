@@ -16,6 +16,9 @@ public class ProductRequest {
     @NotBlank(message = "Name is required")
     private String name;
 
+    @NotBlank(message = "url of the image is required")
+    private String urlImage;
+
     @Size(min = 0, max = 50, message = "description exceeds the number of characters allowe")
     private String description;
 
