@@ -15,8 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -32,9 +31,11 @@ public class ProductService implements IProductService {
     private ProductMapper productMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ProductRelationResponse create(ProductRequest request) {
 
-        Optional<ProductEntity> existingProduct = this.productRepository.findByName(request.getName());
+        ProductEntity existingProduct = this.productRepository.findByName(request.getName());
+
         ProductEntity existingBarCode = this.productRepository.findByBarcode(request.getBarcode());
 
         if (existingProduct != null) throw new DuplicateEntryException(request.getName());
@@ -88,8 +89,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Optional<ProductRelationResponse> getProductName(String name, Pageable pageable) {
-        Optional<ProductEntity> productEntity = productRepository.findByName(name);
+    public Page<ProductRelationResponse> getProductName(String name, Pageable pageable) {
+        Page<ProductEntity> productEntity = productRepository.findByName(name, pageable);
 
         // Convertir la entidad a DTO
         return productEntity.map(productMapper::toResponse);

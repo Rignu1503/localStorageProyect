@@ -15,8 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
-
 
 @RestController
 @RequestMapping(path = "product")
@@ -63,7 +61,7 @@ public class ProductController {
     }
 
     @GetMapping(path = "/{nameProduct}")
-    public ResponseEntity<Optional<ProductRelationResponse>> getByName(
+    public ResponseEntity<Page<ProductRelationResponse>> getByName(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @PathVariable String nameProduct

@@ -16,13 +16,13 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, unique = true, length = 100)
     private String name;
 
     @Column(nullable = false)
     private String urlImage;
 
-    @Column( length = 50)
+    @Column( length = 100)
     private String description;
 
     @Column(nullable = false)

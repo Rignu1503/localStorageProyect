@@ -9,9 +9,6 @@ import com.rigo.local.storage.localStorageProyect.infrastructure.adstract_servic
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-
-import java.util.Optional;
-
 public interface IProductService extends
         ReadAllService<ProductRelationResponse>,
         CreateService<ProductRequest, ProductRelationResponse>,
@@ -20,5 +17,5 @@ public interface IProductService extends
 
     Page<ProductRelationResponse> getProductsByCategoryName(String categoryName, Pageable pageable);
 
-    Optional<ProductRelationResponse> getProductName(String name, Pageable pageable);
+    Page<ProductRelationResponse> getProductName(String name, Pageable pageable);
 }
