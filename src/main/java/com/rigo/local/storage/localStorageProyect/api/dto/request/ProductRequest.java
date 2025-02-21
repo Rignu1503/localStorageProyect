@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductRequest {
 
-    @Size(min = 0, max = 100, message = "Title exceeds the number of characters allowed")
+    @Size(min = 5, max = 100, message = "Title exceeds the number of characters allowed")
     @NotBlank(message = "Name is required")
     private String name;
 
     @NotBlank(message = "url of the image is required")
     private String urlImage;
 
-    @Size(min = 0, max = 100, message = "description exceeds the number of characters allowe")
+    @Size(min = 1, max = 100, message = "description exceeds the number of characters allowe")
     private String description;
 
     @NotNull(message = "Price is required")

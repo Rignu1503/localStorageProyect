@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "category")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT })
 public class CategoryController {
 
     @Autowired
@@ -88,9 +89,5 @@ public class CategoryController {
         this.categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
-
 
 }
