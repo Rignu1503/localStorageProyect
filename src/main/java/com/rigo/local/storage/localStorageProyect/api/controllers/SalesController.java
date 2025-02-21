@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "sales")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT })
 public class SalesController {
 
     @Autowired
