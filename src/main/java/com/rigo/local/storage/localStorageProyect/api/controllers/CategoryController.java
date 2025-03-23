@@ -89,5 +89,4 @@ public class CategoryController {
         this.categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }

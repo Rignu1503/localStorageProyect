@@ -40,7 +40,6 @@ public class SupplierController {
 
     }
 
-
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
@@ -60,6 +59,13 @@ public class SupplierController {
 
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<SupplierResponse> getById(
+           @Validated @PathVariable Long id
+    ) throws BadRequestException {
+        return ResponseEntity.ok(supplierService.getById(id));
+
+    }
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
@@ -90,6 +96,5 @@ public class SupplierController {
         this.supplierService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 
 }

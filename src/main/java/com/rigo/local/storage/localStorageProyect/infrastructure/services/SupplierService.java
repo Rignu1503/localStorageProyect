@@ -3,7 +3,6 @@ package com.rigo.local.storage.localStorageProyect.infrastructure.services;
 import com.rigo.local.storage.localStorageProyect.api.dto.request.SuppliersRequest;
 import com.rigo.local.storage.localStorageProyect.api.dto.response.BasicResponse.SupplierResponse;
 import com.rigo.local.storage.localStorageProyect.api.errors.DuplicateEntryException;
-import com.rigo.local.storage.localStorageProyect.domain.entities.CategoryEntity;
 import com.rigo.local.storage.localStorageProyect.domain.entities.SupplierEntity;
 import com.rigo.local.storage.localStorageProyect.domain.repositories.SupplierRepository;
 import com.rigo.local.storage.localStorageProyect.infrastructure.adstract_services.ISupplierService;
@@ -15,10 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -85,6 +80,13 @@ public class SupplierService implements ISupplierService {
         return this.supplierMapper.toResponse(savedSupplier);
     }
 
+    @Override
+    public SupplierResponse getById(Long id) throws BadRequestException {
+
+        SupplierEntity supplierEntity = this.find(id);
+
+        return supplierMapper.toResponse(supplierEntity);
+    }
 
     //Metodo para buscar por id con manejo de excepciones
     private SupplierEntity find(Long id) throws BadRequestException {
