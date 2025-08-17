@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Report</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        /* Fila principal */
+        .row {
+            display: flex;
+            justify-content: space-between; /* separa los elementos */
+            align-items: center; /* centra verticalmente */
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .row img {
+            max-height: 80px; /* tamaño del logo */
+        }
+
+        /* Encabezados */
+        h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        h2 {
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* Tabla */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        /* Encabezado de tabla */
+        .table thead {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        /* Responsive tabla */
+        .table-responsive {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="row">
+        <div>
+            <img src="https://local-storage-dun.vercel.app/logo/logo.png" alt="Local Storage">
+        </div>
+
+        <div class="text-right">
+            <h1>Local Storage</h1>
+            <p>Fecha: {{date}}</p>
+            <p>Factura de venta</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Lista de productos</h2>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Productos</th>
+                    <th>Cantidad</th>
+                    <th>Valor</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{tableRows}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

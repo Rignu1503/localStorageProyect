@@ -11,6 +11,7 @@ import com.rigo.local.storage.localStorageProyect.domain.repositories.ProductRep
 import com.rigo.local.storage.localStorageProyect.domain.repositories.SalesDetailRepository;
 import com.rigo.local.storage.localStorageProyect.domain.repositories.SalesRepository;
 import com.rigo.local.storage.localStorageProyect.infrastructure.adstract_services.IsalesService;
+import com.rigo.local.storage.localStorageProyect.infrastructure.helpers.EmailHelpper;
 import com.rigo.local.storage.localStorageProyect.infrastructure.mappers.SalesMapper;
 import com.rigo.local.storage.localStorageProyect.utils.enums.ErrorMessages;
 import org.apache.coyote.BadRequestException;
@@ -35,10 +36,18 @@ public class SalesService implements IsalesService {
     private ProductRepository productRepository;
     @Autowired
     private SalesDetailRepository salesDetailRepository;
+    @Autowired
+    private EmailHelpper emailHelpper;
 
 
     @Override
     public SalesRelationResponse create(SalesRequest request) throws BadRequestException {
+
+        // Listas para almacenar lo necesario para los emails
+        ArrayList<String> nameProduct = new ArrayList<>();
+        ArrayList<Double> priceProduct = new ArrayList<>();
+        ArrayList<Integer> quanity = new ArrayList<>();
+
 
         SalesEntity newSales = this.salesMapper.toEntity(request);
 
@@ -70,6 +79,8 @@ public class SalesService implements IsalesService {
                 try {
                     product = productRepository.findById(salesDetailDetail.getProductId())
                             .orElseThrow(() -> new BadRequestException(ErrorMessages.IdNotFound("product")));
+
+
                 } catch (BadRequestException e) {
                     throw new RuntimeException(e);
                 }
@@ -88,11 +99,25 @@ public class SalesService implements IsalesService {
                 salesDetailEntities.add(salesDetail);
 
                 this.salesDetailRepository.save(salesDetail);
+                // Actualizamos el stock del producto
+                product.setStockCurrent(product.getStockCurrent() - salesDetail.getQuantity());
+                this.productRepository.save(product);
+
+                nameProduct.add(product.getName());
+                priceProduct.add(salesDetail.getUnitPrice() * salesDetail.getQuantity());
+                quanity.add(salesDetail.getQuantity());
 
             });
         }
-
         savedSales.setSalesDetailList(salesDetailEntities);
+
+        emailHelpper.sendEmailInvoice(
+                savedSales.getClient().getEmail(),
+                savedSales.getClient().getName(),
+                nameProduct,
+                quanity,
+                priceProduct
+        );
 
         return this.salesMapper.toResponse(savedSales);
     }
