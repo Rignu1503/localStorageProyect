@@ -18,20 +18,20 @@
 
 | **Method** | **Path**          | **Descripción**             | **Autenticación requerida** | **Disponible en UI** |
 |------------|-------------------|-----------------------------|-----------------------------|-----------------------|
-| GET        | `/category`       | Obtener todas las categorías |                             |                       |
-| POST       | `/category`       | Crear nueva categoría        | ✓                           |                       |
+| GET        | `/category`       | Obtener todas las categorías |                             |✓                      |
+| POST       | `/category`       | Crear nueva categoría        | ✓                           |✓                         |
 | PUT        | `/category/{id}`  | Actualizar categoría         | ✓                           |                       |
-| DELETE     | `/category/{id}`  | Eliminar categoría           | ✓                           |                       |
+| DELETE     | `/category/{id}`  | Eliminar categoría           | ✓                           |✓                          |
 
 #### Productos
 
 | **Method** | **Path**                   | **Descripción**               | **Autenticación requerida** | **Disponible en UI** |
 |------------|----------------------------|-------------------------------|-----------------------------|-----------------------|
-| GET        | `/product`                 | Obtener todos los productos   |                             |                       |
-| GET        | `/product/{nameCategory}`  | Obtener productos por categoría |                             |                       |
-| POST       | `/product`                 | Crear nuevo producto          | ✓                           |                       |
-| PUT        | `/product/{id}`            | Actualizar producto           | ✓                           |                       |
-| DELETE     | `/product/{id}`            | Eliminar producto             | ✓                           |                       |
+| GET        | `/product`                 | Obtener todos los productos   |                             |✓                          |
+| GET        | `/product/{nameCategory}`  | Obtener productos por categoría |                             |                          |
+| POST       | `/product`                 | Crear nuevo producto          | ✓                           |✓                          |
+| PUT        | `/product/{id}`            | Actualizar producto           | ✓                           |                          |
+| DELETE     | `/product/{id}`            | Eliminar producto             | ✓                           |✓                          |
 
 ---
 
@@ -41,10 +41,10 @@
 
 | **Method** | **Path**        | **Descripción**         | **Autenticación requerida** | **Disponible en UI** |
 |------------|-----------------|-------------------------|-----------------------------|-----------------------|
-| GET        | `/supplier`     | Obtener todos los proveedores | ✓                            |                       |
-| POST       | `/supplier`     | Crear nuevo proveedor   | ✓                           |                       |
+| GET        | `/supplier`     | Obtener todos los proveedores | ✓                            |✓                          |
+| POST       | `/supplier`     | Crear nuevo proveedor   | ✓                           |✓                          |
 | PUT        | `/supplier/{id}`| Actualizar proveedor    | ✓                           |                       |
-| DELETE     | `/supplier/{id}`| Eliminar proveedor      | ✓                           |                       |
+| DELETE     | `/supplier/{id}`| Eliminar proveedor      | ✓                           |✓                          |
 
 #### Órdenes de compra (Purchase Orders)
 
