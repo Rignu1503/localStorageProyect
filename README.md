@@ -4,7 +4,7 @@
 
 ---
 
-## Diagrama UML
+## Diagrama entidad-relación
 
 ![Diagrama UML de LocalStorage](https://porfolio-dev-git-main-rignus-projects.vercel.app/projects/localStorageDB.png)
 
